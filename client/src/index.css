@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/inter-bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/inter-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Mulish';
+    src: url('/public/fonts/mulish-bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Mulish';
+    src: url('/public/fonts/mulish-semibold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Mulish';
+    src: url('/public/fonts/mulish-medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Mulish';
+    src: url('/public/fonts/mulish-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+}
+h1 {
+  @apply font-mulish;
+  @apply text-[36px];
+  @apply leading-[44px];
+}
+h2 {
+  @apply font-mulish;
+  @apply text-[30px];
+  @apply leading-[38px];
+}
+h3 {
+  @apply font-mulish;
+  @apply text-[24px];
+  @apply leading-[32px];
+}
+h4 {
+  @apply font-mulish;
+  @apply text-[20px];
+  @apply leading-[30px];
+}
+body {
+  @apply font-mulish;
+  @apply w-screen;
+  @apply h-screen;
+  @apply overflow-hidden;
+  @apply box-border;
+}
+
+/* Switch styles */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+.switch input {
+  display: none;
+}
+.slider {
+  @apply bg-secondary-100;
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  background-color: #1e2432;
+  transition: 0.4s;
+  border-radius: 2rem;
+}
+.slider::before {
+  position: absolute;
+  content: '';
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  @apply bg-primary-0;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+input:checked + .slider::before {
+  transform: translateX(16px);
+}

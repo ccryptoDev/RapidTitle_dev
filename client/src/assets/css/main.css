@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/inter-bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/inter-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Mulish';
+    src: url('/public/fonts/mulish-bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Mulish';
+    src: url('/public/fonts/mulish-semibold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Mulish';
+    src: url('/public/fonts/mulish-medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Mulish';
+    src: url('/public/fonts/mulish-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+}
+h1 {
+  @apply font-mulish;
+  @apply font-bold;
+  @apply text-4xl;
+}
+body {
+  @apply font-inter;
+}
