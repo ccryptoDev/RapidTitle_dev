@@ -52,6 +52,7 @@ function App() {
       <ProSidebarProvider>
         <Router>
           <ToastContainer />
+          <Spinner/>
           <Routes>
             <Route path='/' element={<PrivateRoute component={Home} />} />
             <Route path='/auth/login' element={<Login />}/>
