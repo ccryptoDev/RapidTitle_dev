@@ -357,7 +357,7 @@ export default function Community() {
                     <img src={ArrowDown} alt="arrow down icon" />
                   </div>
                   {/* chat section */}
-                  <div className="mt-[30px] w-[340px] h-[400px] overflow-y-auto rounded-l-lg">
+                  <div className="mt-[30px] w-[340px] h-[535px] overflow-y-auto rounded-l-lg">
                     {chat_tab === 'titles' && (
                       <ChatTitleList
                         data={titleData}
@@ -366,20 +366,6 @@ export default function Community() {
                         room_id={chat_room_id}
                       />
                     )}
-                  </div>
-                  {/* chat banner */}
-                  <div className="mt-[45px] mr-2 p-3 flex gap-4 bg-primary-0 rounded-xl shadow-blue">
-                    <div className="w-[60px] h-[60px] flex justify-center items-center rounded-2xl bg-secondary-90 ">
-                      <img src={fileDocumentIcon} alt="file document icon" />
-                    </div>
-                    <div className="w-[214px] flex flex-col gap-1">
-                      <div className="text-base text-secondary-90">
-                        See all Attached Reports
-                      </div>
-                      <div className="text-xs text-secondary-70">
-                        See all reports that have been attached in conversations
-                      </div>
-                    </div>
                   </div>
                   {/* chat footer */}
                   <div className="mt-7 h-[91px] flex justify-between pr-2 ">

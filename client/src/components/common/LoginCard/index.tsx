@@ -78,7 +78,7 @@ function LoginCard() {
             <input type="hidden" name="remember" value="true" />
             <div className="flex flex-col gap-5">
               <div className="relative w-[370px] h-[58px] px-4 flex justify-between items-center bg-primary-0 border-2 border-secondary-70 rounded-lg focus-within:ring-1 focus-within:ring-secondary-100 focus-within:border-secondary-100">
-                <div className="flex flex-col">
+                <div className="w-full flex flex-col">
                   <p className="font-inter font-medium text-xs text-primary-50">
                     Email
                   </p>
@@ -90,14 +90,14 @@ function LoginCard() {
                     onChange={(e) => setEmail(e.target.value)}
                     autoComplete={'off'}
                     required
-                    className="w-full bg-primary-0 outline-none placeholder:text-primary-50"
+                    className="w-full bg-primary-0 outline-none placeholder:text-primary-50 pr-1"
                     placeholder="JohnDoe@email.com"
                   />
                 </div>
                 <img src={EmailIcon} alt="email icon" />
               </div>
               <div className="relative w-[370px] h-[58px] px-4 flex justify-between items-center bg-primary-0 border-2 border-secondary-70 rounded-lg focus-within:ring-1 focus-within:ring-secondary-100 focus-within:border-secondary-100">
-                <div className="flex flex-col">
+                <div className="w-full flex flex-col">
                   <p className="font-inter font-medium text-xs text-primary-50">
                     Password
                   </p>
@@ -108,7 +108,7 @@ function LoginCard() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full bg-primary-0 outline-none placeholder:text-primary-50"
+                    className="w-full bg-primary-0 outline-none placeholder:text-primary-50 pr-1"
                     placeholder="*************************"
                   />
                 </div>

@@ -115,7 +115,7 @@ function FilterCards() {
           </button>
         </div>
         <div className="flex justify-between items-center">
-          <p className="font-bold">L.A Head Quarters</p>
+          <p className="font-bold">Los Angeles HQ</p>
           <img src={building} alt="building icon" />
         </div>
       </div>

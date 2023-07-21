@@ -18,6 +18,8 @@ import {
   getUserAddress 
 } from 'utils/useWeb3';
 import { setAlert } from 'store/actions/alert';
+import Swal from 'sweetalert2';
+import { ResetTvRounded } from '@mui/icons-material';
 
 
 function AdditionalInfo() {
@@ -110,7 +112,11 @@ function AdditionalInfo() {
     // Check if minter connected to wallet
     const isConnectedWallet = await getUserAddress();
     if( !isConnectedWallet ) {
-      setAlert("Please connect your wallet!");
+      Swal.fire({
+        title: "Error",
+        html: "Please connect your wallet",
+        icon: "error"
+      });
       return;
     }
 
@@ -118,10 +124,15 @@ function AdditionalInfo() {
     const nextTokenID = await getNextTokenID();
 
     dispatch({ type: 'SET_LOADING', payload: true });
-    
+
     // required to upload 3 images
     if( image1 === undefined || image2 === undefined || image3 === undefined ) {
-      setAlert("Please confirm that you have uploaded 3 images for vehicle");
+      Swal.fire({
+        title: "Error",
+        html: "Please confirm that you have uploaded 3 images for vehicle",
+        icon: "error"
+      });
+      dispatch({ type: 'SET_LOADING', payload: false });
       return false;
     }
 
@@ -165,6 +176,19 @@ function AdditionalInfo() {
 
     console.log('tx----------', tx);
     
+    // in case of error
+    if( !tx ) {
+      Swal.fire({
+        title: "Error",
+        html: "An error is caused while creating a Title! Make sure that you have enough ETH to cost the fee or you are in the right network",
+        icon: "error"
+      });
+      // spinner off
+      dispatch({ type: 'SET_LOADING', payload: false });
+      return;
+    } 
+
+    // continue if success
     // get tokenID from Tx event
     let _tokenId = tx.events.TitleCreated.returnValues._tokenId;
     console.log('token_id ---', _tokenId);
@@ -188,7 +212,11 @@ function AdditionalInfo() {
       handleOpen();
     } else {
       // in case of error
-      alert("An error is caused while creating a Title!");
+      Swal.fire({
+        title: "Error",
+        html: "An error is caused while creating a Title!",
+        icon: "error"
+      });
     }
   };
 

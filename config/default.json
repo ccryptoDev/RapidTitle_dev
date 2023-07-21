@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb://ec2-13-52-145-201.us-west-1.compute.amazonaws.com:27017/rapidtitle",
+  "mongoURI": "mongodb://administrator:IoDpa%24%24word!@ec2-13-52-145-201.us-west-1.compute.amazonaws.com:27017/rapidtitle?authMechanism=DEFAULT&authSource=admin",
   "jwtSecret": "secret"
 }

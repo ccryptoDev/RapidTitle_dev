@@ -175,7 +175,7 @@ function TitleList({ viewMode, filterMode, titleVault, changeView, changeFilterM
               <div className="flex flex-col gap-2">
                 <div className="flex justify-between items-center">
                   <p className="text-accent1-90 text-xl mt-1">
-                    $ {Number(title.data.cost).toLocaleString()}
+                    ${Number(title.data.cost).toLocaleString()}
                   </p>
                   <button className="w-[84px] h-[26px] bg-accent1-100 flex justify-center items-center text-sm text-primary-0 font-bold  px-1 rounded-lg ">
                     {title.completedHolds}/{title.numHolds} Holds

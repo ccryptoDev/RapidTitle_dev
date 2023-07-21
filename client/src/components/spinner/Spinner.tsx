@@ -5,11 +5,11 @@ import { useSelector } from 'react-redux';
 
 const Spinner = () => {
   const loadingStatus = useSelector((state:any) => state.loading.loading);
-  return <div className={`flex items-center fixed bg-black bg-opacity-70 z-20 w-full h-full ${loadingStatus ? '' : 'hidden'}`}>
+  return <div className={`flex backdrop-blur-[2px] items-center fixed bg-black z-20 w-full h-full ${loadingStatus ? '' : 'hidden'}`}>
     <Fragment>
       <img 
         src={spinner}
-        style={{ width: '100px', margin: 'auto', display: 'block' }}
+        style={{ width: '50px', margin: 'auto', display: 'block' }}
         alt="Loading..."
       />
     </Fragment>

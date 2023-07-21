@@ -6,6 +6,10 @@ import Web3 from 'web3';
 import axios from 'axios';
 
 const TITLE_CONTRACT = `${process.env.REACT_APP_TITLE_CONTRACT}`
+const provider = new Web3.providers.HttpProvider(`${process.env.REACT_APP_ETHEREUM_TESTNET_SEPOLIA_RPC}`);
+const web3Instance = new Web3(provider);
+//@ts-ignore
+const contractInstance = new web3Instance.eth.Contract(titleContractABI, TITLE_CONTRACT);
 
 const sleep = (ms: number) => new Promise(
   resolve => setTimeout(resolve, ms)
@@ -69,10 +73,8 @@ async function getUserAddress() {
 }
 
 async function getNextTokenID() {
-  window.web3 = new Web3(window.ethereum);
-  const contract = await new window.web3.eth.Contract(titleContractABI, TITLE_CONTRACT);
   try {
-    const nextTokenID = await contract.methods.nextTokenId().call();
+    const nextTokenID = await contractInstance.methods.nextTokenId().call();
     return nextTokenID;
   } catch (err) {
     console.log(err);
@@ -81,23 +83,15 @@ async function getNextTokenID() {
 }
 
 async function getAllTitles() {
-  // @ts-ignore
-  const walletAddr = await getUserAddress();
-  if(!walletAddr){
-    alert('select wallet address!');
-    return [];
-  }
-  window.web3 = new Web3(window.ethereum);
-  const contract = await new window.web3.eth.Contract(titleContractABI, TITLE_CONTRACT);
   try {
-    const titleIds = await contract.methods.getAllTitlesList().call();
+    const titleIds = await contractInstance.methods.getAllTitlesList().call();
     
     if (titleIds) {
       let titles = [];
       for(let i=0; i <= titleIds.length-1; i++){
         let titleId = Number(titleIds[i]);
         // let vehicleId = await contract.methods.getTitle(titleId).call();
-        let title = await contract.methods.getVehicleURI(titleId).call();
+        let title = await contractInstance.methods.getVehicleURI(titleId).call();
         titles.push(title);
       }
       console.log(titles)
@@ -117,14 +111,14 @@ async function mintTitle(
   dmvID: Number, 
   holds_number: Number
   ) {
+  const walletAddr = await getUserAddress();
+  if( !walletAddr ) {
+    return false;
+  }  
+
   // @ts-ignore
   window.web3 = new Web3(window.ethereum);
   const contract = await new window.web3.eth.Contract(titleContractABI, TITLE_CONTRACT);
-  const walletAddr = await getUserAddress();
-  if( !walletAddr ) {
-    alert('Pleaes confirm wallet address!');
-    return;
-  }
 
   try {
     return await contract.methods.mintTitle(walletAddr, vehicleCID, dealerID, lenderID, sellerID, dmvID, holds_number).send({
@@ -137,13 +131,8 @@ async function mintTitle(
 }
 
 async function getTitleDetail(titleId: number) {
-  // @ts-ignore
-  window.web3 = new Web3(window.ethereum);
-  const contract = await new window.web3.eth.Contract(titleContractABI, TITLE_CONTRACT);
-  const walletAddr = await getUserAddress();
-
   try {
-    return await contract.methods.getTitle(titleId).call();
+    return await contractInstance.methods.getTitle(titleId).call();
   } catch (err) {
     console.log(err)
     return false
@@ -151,14 +140,8 @@ async function getTitleDetail(titleId: number) {
 }
 
 async function getVehicleDetail(titleId: number) {
-  // @ts-ignore
-  window.web3 = new Web3(window.ethereum);
-  const contract = await new window.web3.eth.Contract(titleContractABI, TITLE_CONTRACT);
-  const walletAddr = await getUserAddress();
-
   try {
-    let vehicleId = await contract.methods.getTitle(titleId-1).call();
-    return await contract.methods.getVehicleURI(vehicleId[1]).call();
+    return await contractInstance.methods.getVehicleURI(titleId).call();
   } catch (err) {
     console.log(err)
     return false
@@ -166,14 +149,10 @@ async function getVehicleDetail(titleId: number) {
 }
 
 async function getHoldsStatus(title_id: number, holds_number: number) {
-  // @ts-ignore
-  window.web3 = new Web3(window.ethereum);
-  const contract = await new window.web3.eth.Contract(titleContractABI, TITLE_CONTRACT);
-  
   try {
     let holds_status: any = [];
     for(let i = 0; i < holds_number; i++) {
-      const status = await contract.methods.getHoldsStatus(title_id, i).call();
+      const status = await contractInstance.methods.getHoldsStatus(title_id, i).call();
 
       await sleep(20);
 
@@ -190,14 +169,13 @@ async function getHoldsStatus(title_id: number, holds_number: number) {
 }
 
 async function updateHoldsStatus(title_id: number, holds_status_id: number, newStatus: boolean) {
-  // @ts-ignore
-  window.web3 = new Web3(window.ethereum);
-  const contract = await new window.web3.eth.Contract(titleContractABI, TITLE_CONTRACT);
   const walletAddr = await getUserAddress();
   if( !walletAddr ) {
-    alert('Pleaes confirm wallet address!');
-    return;
+    return false;
   }
+
+  window.web3 = new Web3(window.ethereum);
+  const contract = await new window.web3.eth.Contract(titleContractABI, TITLE_CONTRACT);
 
   try {
     return await contract.methods.updateTitleStatus(title_id, holds_status_id, newStatus).send({
@@ -205,7 +183,7 @@ async function updateHoldsStatus(title_id: number, holds_status_id: number, newS
     });
   } catch (err) {
     console.log('an error while updateing holds status', err);
-    return false;
+    return err;
   }
 }
 

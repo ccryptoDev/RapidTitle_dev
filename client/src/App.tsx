@@ -52,12 +52,12 @@ function App() {
       <ProSidebarProvider>
         <Router>
           <ToastContainer />
-          <Spinner/>
+          <Spinner />
           <Routes>
             <Route path='/' element={<PrivateRoute component={Home} />} />
             <Route path='/auth/login' element={<Login />}/>
             <Route path='/auth/signup' element={<Signup />} />
-            <Route path="/verify" element={<EmailVerify />} />    
+            <Route path="/verify" element={<EmailVerify />} /> 
             <Route path='/createtitle' element={<PrivateRoute component={NewTitle} />} />
             <Route path='/createtitle/otherinfo' element={<PrivateRoute component={OtherInfo} />} />
             <Route path="/titleDetail/:id" element={<PrivateRoute component={TitleDetail} />} />

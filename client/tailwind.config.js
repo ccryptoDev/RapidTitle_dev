@@ -11,7 +11,8 @@ module.exports = {
       },
       boxShadow: {
         pink: '0px 4px 8px rgba(255, 51, 102, 0.53)',
-        blue: '0px 4px 4px  rgba(51, 51, 153, 0.60)'
+        blue: '0px 4px 4px  rgba(51, 51, 153, 0.60)',
+        dark: '0px 4px 4px  rgba(0, 0, 0, 0.25)'
       }
     },
     fontFamily: {

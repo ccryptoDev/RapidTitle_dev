@@ -3,22 +3,23 @@ import './index.view.css';
 import { useNavigate } from 'react-router-dom';
 import SideBar from '../SideBar';
 import HeaderBar from '../HeaderBar';
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
-import PersonDropdown from "../PersonDropdown";
-
-
+import PersonDropdown from '../PersonDropdown';
 
 export default function TitleStatus({ data, id }: any) {
   const [shareQR, setShareQR] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [salesperson, setSalesPerson] = useState({name:'Lia Smith',image:'Avatar12'});
-  const handleClose = (index : number, param: any) => {
-    if(index === 4){
+  const [salesperson, setSalesPerson] = useState({
+    name: 'Lia Smith',
+    image: 'Avatar12'
+  });
+  const handleClose = (index: number, param: any) => {
+    if (index === 4) {
       setSalesPerson(param);
       setIsOpen(false);
     }
-  }
+  };
   return (
     <>
       {/*!shareQR && (<div className='p-[60px] rounded-xl flex w-[80%] h-[70%] m-[60px] items-center relative' style={{boxShadow: "rgba(0, 0, 0, 0.25) 1px 7px 6px 2px"}}>
@@ -40,44 +41,118 @@ export default function TitleStatus({ data, id }: any) {
             </div>
         </div>
   </div>)*/}
-      {shareQR && (<div className='p-[60px] rounded-xl flex w-[80%] h-[70%] m-[60px] items-center relative' style={{boxShadow: "rgba(0, 0, 0, 0.25) 1px 7px 6px 2px"}}>
-        {/* <img src='/qr_code_lg.png' width={373} height={373}/> */}
-        <div className='p-[50px] rounded-2xl items-center w-[473px] h-[373px]' style={{boxShadow: "rgba(0, 0, 0, 0.25) 1px 7px 6px 2px"}}>
-          <span className='text-secondary-100 text-3xl cursor-pointer' onClick={() => setShareQR(false)}> &larr;</span>
-          <span className='ml-[15px] text-accent1-100' style={{fontSize:26}}>Select a Member</span>
-          {!isOpen &&
-            <div className="flex items-center p-[15px] mt-[45px] cursor-pointer bg-primary-0" onClick={() => setIsOpen(!isOpen)}>
-                <img src={require(`../../../assets/img/Avatar/${salesperson.image}.png`)} alt="" />
-                <h3 className="px-2 flex-1 text-primary-100" style={{ fontSize: '16px', fontWeight: 600 }}>{salesperson.name}</h3>
-                <img className="pe-4" src={require('../../../assets/img/Product/Arrow/Vector.png')} alt="" />
-                <img className="ps-3" src={require('../../../assets/img/Filter.png')} alt="" />
+      {shareQR ? (
+        <div
+          className="p-[60px] rounded-xl flex w-[80%] h-[70%] m-[60px] items-center relative"
+          style={{ boxShadow: 'rgba(0, 0, 0, 0.25) 1px 7px 6px 2px' }}
+        >
+          {/* <img src='/qr_code_lg.png' width={373} height={373}/> */}
+          <div
+            className="p-[50px] rounded-2xl items-center w-[473px] h-[373px]"
+            style={{ boxShadow: 'rgba(0, 0, 0, 0.25) 1px 7px 6px 2px' }}
+          >
+            <span
+              className="text-secondary-100 text-3xl cursor-pointer"
+              onClick={() => setShareQR(false)}
+            >
+              {' '}
+              &larr;
+            </span>
+            <span
+              className="ml-[15px] text-accent1-100"
+              style={{ fontSize: 26 }}
+            >
+              Select a Member
+            </span>
+            {!isOpen && (
+              <div
+                className="flex items-center p-[15px] mt-[45px] cursor-pointer bg-primary-0"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                <img
+                  src={require(`../../../assets/img/Avatar/${salesperson.image}.png`)}
+                  alt=""
+                />
+                <h3
+                  className="px-2 flex-1 text-primary-100"
+                  style={{ fontSize: '16px', fontWeight: 600 }}
+                >
+                  {salesperson.name}
+                </h3>
+                <img
+                  className="pe-4"
+                  src={require('../../../assets/img/Product/Arrow/Vector.png')}
+                  alt=""
+                />
+                <img
+                  className="ps-3"
+                  src={require('../../../assets/img/Filter.png')}
+                  alt=""
+                />
+              </div>
+            )}
+            {isOpen && (
+              <div
+                className="flex items-center p-[15px] mt-[45px] cursor-pointer bg-primary-0"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                <img
+                  src={require(`../../../assets/img/Avatar/${salesperson.image}.png`)}
+                  alt=""
+                />
+                <h3
+                  className="px-2 flex-1 text-primary-100"
+                  style={{ fontSize: '16px', fontWeight: 600 }}
+                >
+                  {salesperson.name}
+                </h3>
+                <img
+                  className="pe-4"
+                  src={require('../../../assets/img/Product/Arrow/Vector.png')}
+                  alt=""
+                />
+                <img
+                  className="ps-3"
+                  src={require('../../../assets/img/Filter.png')}
+                  alt=""
+                />
+              </div>
+            )}
+            {isOpen && (
+              <PersonDropdown
+                handleClose={handleClose}
+                salesperson={salesperson}
+              />
+            )}
+            <div
+              className="flex bg-accent2-100 mt-[50px] py-2 px-3 rounded-full text-center text-secondary-100 w-[30%] mx-auto cursor-pointer"
+              style={{ fontSize: '16px', fontWeight: 600 }}
+            >
+              <span className="pl-[10px]">Send</span>
+              <img src="/Mail.png" className="ml-[10px]" />
             </div>
-          }
-          {isOpen &&
-            <div className="flex items-center p-[15px] mt-[45px] cursor-pointer bg-primary-0" onClick={() => setIsOpen(!isOpen)}>
-                <img src={require(`../../../assets/img/Avatar/${salesperson.image}.png`)} alt="" />
-                <h3 className="px-2 flex-1 text-primary-100" style={{ fontSize: '16px', fontWeight: 600 }}>{salesperson.name}</h3>
-                <img className="pe-4" src={require('../../../assets/img/Product/Arrow/Vector.png')} alt="" />
-                <img className="ps-3" src={require('../../../assets/img/Filter.png')} alt="" />
-            </div>
-          }
-          {isOpen &&
-              <PersonDropdown handleClose={handleClose} salesperson = {salesperson}/>
-          }
-          <div className='flex bg-accent2-100 mt-[50px] py-2 px-3 rounded-full text-center text-secondary-100 w-[30%] mx-auto cursor-pointer' style={{fontSize: '16px', fontWeight: 600}}>
-            <span className='pl-[10px]'>Send</span>
-            <img src='/Mail.png' className='ml-[10px]'/>
+          </div>
+          <div className="ml-[70px] ">
+            <p className="mb-[28px]" style={{ fontSize: 30 }}>
+              Hyundai Tucson
+            </p>
+            <p className="mb-[9px]" style={{ fontSize: 16 }}>
+              Inventory Number: K9127A
+            </p>
+            <p className="mb-[9px]" style={{ fontSize: 16 }}>
+              Vehicle Number: K72F40K7F240FK
+            </p>
+            <p className="mb-[9px]" style={{ fontSize: 16 }}>
+              DMV: Los Angeles, California{' '}
+            </p>
+            <img src="/qr_code_lg.png" width={108} height={108} />
           </div>
         </div>
-        <div className='ml-[70px] '>
-          <p className='mb-[28px]' style={{fontSize:30}}>Hyundai Tucson</p>
-          <p className='mb-[9px]' style={{fontSize:16}}>Inventory Number: K9127A</p>
-          <p className='mb-[9px]' style={{fontSize:16}}>Vehicle Number: K72F40K7F240FK</p>
-          <p className='mb-[9px]' style={{fontSize:16}}>DMV: Los Angeles, California </p>
-          <img src='/qr_code_lg.png' width={108} height={108}/>
+      ) : (
+        <div className="w-[990px] h-[550px] flex items-center justify-center">
+          <p className="text-primary-100 text-lg">No data to show</p>
         </div>
-      </div>)}
+      )}
     </>
-    
   );
 }
